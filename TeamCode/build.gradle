@@ -13,3 +13,11 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+
+android {
+    sourceSets {
+        main {
+            resources.srcDirs = ['src/main/resources', 'src/main/java/org/firstinspires/ftc/teamcode/TutorialCode']
+        }
+    }
+}
