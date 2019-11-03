@@ -9,7 +9,7 @@ import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
 @Autonomous(name="EncoderOpMode", group = "AutoMode")
-public class EncoderAutoOpMode extends LinearOpMode {
+public class AutonomousEncoderOpMode extends LinearOpMode {
 
     DcMotor leftWheel;
     DcMotor rightWheel;
