@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.media.AudioManager;
 import android.media.SoundPool;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -45,8 +44,6 @@ public class TeleOpControllerTankDrive extends OpMode {
 
         liftPower = 0.75;
 
-        mySound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
-        beepID = mySound.load(hardwareMap.appContext, R.raw.defaultdance, 1); // PSM
 
         leftBumper = false;
 
@@ -69,20 +66,6 @@ public class TeleOpControllerTankDrive extends OpMode {
 
         lift.setPower(liftPower);
         claw.setPosition(Math.abs(servoPosition));
-
-        // Joke Default Dance Sound - either driver can access through left bumper
-        if(gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0)
-        {
-            leftBumper = true;
-        }
-        else
-            {
-                leftBumper = false;
-            }
-        if(leftBumper)
-        {
-            mySound.play(beepID,1,1,1,0,1);
-        }
 
 
         /*

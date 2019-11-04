@@ -18,7 +18,7 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
     Servo claw;
 
     double tiles = 22.75;
-    double drivePower = 1;
+    double drivePower = 0.8;
     double liftPower = 0.75;
 
     @Override

@@ -71,12 +71,12 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         mySound.play(beepID,1,1,1,0,1);
         sleep(1000);
 
-        //Lift for 1 second
+        //Lift up for 1 second
         lift.setPower(liftPower);
         sleep(1000);
         lift.setPower(0);
 
-        //Lift for 1 second
+        //Lift down for 1 second
         lift.setPower(-liftPower);
         sleep(1000);
         lift.setPower(0);
@@ -89,7 +89,20 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         //Opens claw for 1 sec
         claw.setPosition(1);
         sleep(1000);
+
+        //Beep
+        sleep(1000);
+        mySound.play(beepID,1,1,1,0,1);
+        sleep(1000);
+
+        // Close Claw for 1 Second
         claw.setPosition(0);
+        sleep(1000);
+
+        //Beep
+        sleep(1000);
+        mySound.play(beepID,1,1,1,0,1);
+        sleep(1000);
 
         //Beep
         sleep(1000);
@@ -111,6 +124,8 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
             sleep(0);
             //Wait until position reached
         }
+
+        resetEncoders();
 
         //Beep
         sleep(1000);
