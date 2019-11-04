@@ -58,6 +58,7 @@ public class WolfboticsHardwareMap
     public DcMotor  lift     = null;
     public Servo claw = null;
 
+
     public static final double CLOSED_SERVO   =  0 ;
 
     /* local OpMode members. */
@@ -75,9 +76,12 @@ public class WolfboticsHardwareMap
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftWheel  = hwMap.get(DcMotor.class, "left_wheel");
-        rightWheel = hwMap.get(DcMotor.class, "right_wheel");
-        lift = hwMap.get(DcMotor.class, "lift_motor");
+        leftWheel  = hwMap.get(DcMotor.class, "leftWheel");
+        rightWheel = hwMap.get(DcMotor.class, "rightWheel");
+        lift = hwMap.get(DcMotor.class, "liftMotor");
+        claw = hwMap.get(Servo.class, "clawServo");
+
+
 
         leftWheel.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightWheel.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

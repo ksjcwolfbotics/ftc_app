@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
-@Autonomous(name="EncoderOpMode", group = "AutoMode")
+@Autonomous(name="AutonomousEncoderOpMode", group = "Autonomous")
 public class AutonomousEncoderOpMode extends LinearOpMode {
 
     DcMotor leftWheel;

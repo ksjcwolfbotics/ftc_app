@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name="GamepadDrive", group="TeleOp")
+@TeleOp(name="TeleOpControllerTankDrive", group="TeleOp")
 
 
 public class TeleOpControllerTankDrive extends OpMode {
