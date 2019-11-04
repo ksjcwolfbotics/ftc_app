@@ -25,7 +25,7 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
     public int beepID;
 
     double tiles = 22.75;
-    double drivePower = 1;
+    double drivePower = 0.8;
     double liftPower = 0.75;
 
     @Override
@@ -60,8 +60,8 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         //Instructions After Init. and Start.
 
         // Move for a second
-        leftWheel.setPower(1);
-        rightWheel.setPower(1);
+        leftWheel.setPower(drivePower);
+        rightWheel.setPower(drivePower);
         sleep(1000);
         leftWheel.setPower(0);
         rightWheel.setPower(0);
@@ -72,7 +72,12 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         sleep(1000);
 
         //Lift for 1 second
-        lift.setPower(1);
+        lift.setPower(liftPower);
+        sleep(1000);
+        lift.setPower(0);
+
+        //Lift for 1 second
+        lift.setPower(-liftPower);
         sleep(1000);
         lift.setPower(0);
 
