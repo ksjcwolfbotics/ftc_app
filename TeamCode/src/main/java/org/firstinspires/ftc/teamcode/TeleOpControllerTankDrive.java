@@ -19,8 +19,7 @@ public class TeleOpControllerTankDrive extends OpMode {
 
     Servo claw;
 
-    public SoundPool mySound;
-    public int beepID;
+
     boolean leftBumper;
 
     double leftWheelPower;
@@ -45,7 +44,7 @@ public class TeleOpControllerTankDrive extends OpMode {
         liftPower = 0.75;
 
 
-        leftBumper = false;
+      
 
     }
 
