@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
-@Autonomous(name="utonomousEncoderTurningTesting", group = "Autonomous")
+@Autonomous(name="AutonomousEncoderTurningTesting", group = "Autonomous")
 public class AutonomousEncoderTurningTesting extends LinearOpMode {
 
     DcMotor leftWheel;
@@ -17,11 +17,9 @@ public class AutonomousEncoderTurningTesting extends LinearOpMode {
 
     Servo claw;
 
-
     double drivePower = 0.8;
 
     double robotLength;
-
 
     int rightWheelTargetPosition;
     int leftWheelTargetPosition;
@@ -69,6 +67,10 @@ public class AutonomousEncoderTurningTesting extends LinearOpMode {
         rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         sleep(5000);
+
+        leftWheel.setPower(0);
+        rightWheel.setPower(0);
+
 
         telemetry.addLine("Done.");
     }
