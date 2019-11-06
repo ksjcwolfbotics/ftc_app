@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
-@Autonomous(name="AutonomousDiagnosticOpMode", group = "Autonomous Testing")
-public class AutonomousDiagnosticOpMode extends LinearOpMode {
+@Autonomous(name="AutonomousInchesToTicksTesting", group = "Autonomous Testing")
+public class AutonomousInchesToTicksTesting extends LinearOpMode {
 
     DcMotor leftWheel;
     DcMotor rightWheel;
@@ -20,9 +20,11 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
 
     Servo claw;
 
-    public SoundPool mySound;
-
+    public SoundPool beep;
     public int beepID;
+
+    public SoundPool dance;
+    public int danceID;
 
     double tiles = 22.75;
     double drivePower = 0.9;
@@ -45,13 +47,14 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         leftWheel.setDirection(DcMotor.Direction.REVERSE);
         lift.setDirection(DcMotor.Direction.REVERSE);
 
-        leftWheel.setPower(drivePower);
-        rightWheel.setPower(drivePower);
 
-        mySound = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
-        beepID = mySound.load(hardwareMap.appContext, R.raw.beep, 1); // PSM
+        beep = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
+        beepID = beep.load(hardwareMap.appContext, R.raw.beep, 1); // PSM
 
-        mySound.play(beepID,1,1,1,0,1);
+        dance = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
+        danceID = dance.load(hardwareMap.appContext, R.raw.defaultdance, 1); // PSM
+
+        beep.play(beepID,1,1,1,0,1);
 
         waitForStart();
 
@@ -59,57 +62,15 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
 
         //Instructions After Init. and Start.
 
-        // Move for a second
-        leftWheel.setPower(drivePower);
-        rightWheel.setPower(drivePower);
-        sleep(1000);
-        leftWheel.setPower(0);
-        rightWheel.setPower(0);
-
-        //Beep boop
-        sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
-        sleep(1000);
-
-        //Lift up for 1 second
-        lift.setPower(liftPower);
-        sleep(1000);
-        lift.setPower(0);
-
-        //Lift down for 1 second
-        lift.setPower(-liftPower);
-        sleep(1000);
-        lift.setPower(0);
-
-        //Beep boop
-        sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
-        sleep(1000);
-
-        //Opens claw for 1 sec
-        claw.setPosition(1);
-        sleep(1000);
-
         //Beep
         sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
-        sleep(1000);
-
-        // Close Claw for 1 Second
-        claw.setPosition(0);
-        sleep(1000);
-
-        //Beep
-        sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
-        sleep(1000);
-
-        //Beep
-        sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
+        beep.play(beepID,1,1,1,0,1);
         sleep(1000);
 
         resetEncoders();
+
+        leftWheel.setPower(drivePower);
+        rightWheel.setPower(drivePower);
 
         //Move 1 inch
         leftWheel.setTargetPosition(inchesToTicks(1));
@@ -129,27 +90,11 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
 
         //Beep
         sleep(1000);
-        mySound.play(beepID,1,1,1,0,1);
+        beep.play(beepID,1,1,1,1,1);
         sleep(1000);
 
-        //Move 1 tile
-        leftWheel.setTargetPosition(inchesToTicks(tiles));
-        rightWheel.setTargetPosition(inchesToTicks(tiles));
-
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
-
-        //Beep
-        sleep(1000);
-        mySound.play(beepID,1,1,1,10,1);
-        sleep(1000);
+        //Default
+        dance.play(danceID,1,1,1,0,1);
 
 
 
@@ -165,4 +110,4 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         leftWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    }
+}

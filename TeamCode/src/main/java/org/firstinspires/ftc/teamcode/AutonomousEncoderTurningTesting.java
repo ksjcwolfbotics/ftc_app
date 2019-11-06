@@ -10,7 +10,7 @@ import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
 
-@Autonomous(name="AutonomousEncoderTurningTesting", group = "Autonomous")
+@Autonomous(name="AutonomousEncoderTurningTesting", group = "Autonomous Testing")
 public class AutonomousEncoderTurningTesting extends LinearOpMode {
 
     DcMotor leftWheel;
