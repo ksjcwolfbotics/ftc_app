@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
+
+
 @Autonomous(name="AutonomousEncoderTurningTesting", group = "Autonomous")
 public class AutonomousEncoderTurningTesting extends LinearOpMode {
 
@@ -17,7 +19,7 @@ public class AutonomousEncoderTurningTesting extends LinearOpMode {
 
     Servo claw;
 
-    double drivePower = 0.8;
+    double drivePower = 0.9;
 
     double robotLength;
 

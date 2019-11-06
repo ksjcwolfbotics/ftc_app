@@ -25,7 +25,7 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
     public int beepID;
 
     double tiles = 22.75;
-    double drivePower = 0.8;
+    double drivePower = 0.9;
     double liftPower = 0.75;
 
     @Override

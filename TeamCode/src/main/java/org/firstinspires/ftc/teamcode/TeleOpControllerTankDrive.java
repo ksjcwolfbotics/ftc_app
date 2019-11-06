@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.media.SoundPool;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -55,8 +53,8 @@ public class TeleOpControllerTankDrive extends OpMode {
         leftWheelPower = gamepad1.left_stick_y;
         rightWheelPower = gamepad1.right_stick_y;
 
-        leftWheel.setPower(leftWheelPower*0.8);
-        rightWheel.setPower(rightWheelPower*0.8);
+        leftWheel.setPower(leftWheelPower*0.9);
+        rightWheel.setPower(rightWheelPower*0.9);
 
         // Lift and Claw Using Gamepad 2's Left Stick and Right Stick
 
@@ -68,6 +66,9 @@ public class TeleOpControllerTankDrive extends OpMode {
 
 
         /*
+
+
+
         boolean servoOnOrOff;
 
         servoOnOrOff = false;
