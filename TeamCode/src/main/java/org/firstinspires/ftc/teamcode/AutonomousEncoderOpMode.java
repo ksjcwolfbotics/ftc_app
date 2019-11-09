@@ -74,8 +74,8 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         // Move 1 tile back.
 
         // Set Up Target Position to 1 tile backwards.
+        
 
-        // DO WE NEED TO MAKE DRIVE POWER NEGATIVE?
 
         moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
 
@@ -105,7 +105,7 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         //turn left (inverse the right and left wheel targets)
         moveForward(rightWheelTargetPosition, leftWheelTargetPosition, 0.5);
 
-        //move forward 1
+        //move forward 0.5
         moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), 0.5);
 
         // close claw
@@ -126,9 +126,41 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         claw.setPosition(0.5);
 
-        // move back 0.5 tiles
-
+        // move back 0.75tiles
         moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), 0.5);
+
+        // EXPERIMENTAL - 3rd Brick Pickup
+        // Remove the Above move back 0.75 tiles to begin.
+
+        // move back 3 tiles
+        moveForward(inchesToTicks(-3*tiles), inchesToTicks(-3*tiles), 0.5);
+
+        //turn left (inverse the right and left wheel targets)
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, 0.5);
+
+        //move forward 0.5
+        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), 0.5);
+
+        // close claw
+        claw.setPosition(0);
+
+        // move back 1 tile
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
+
+        // Turn right.
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
+
+        // move forward 3 tiles
+        moveForward(inchesToTicks(3*tiles), inchesToTicks(3*tiles), 0.5);
+
+        // open claw
+        claw.setPosition(0.5);
+
+        // move back 0.75tiles
+        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), 0.5);
+
+        telemetry.addData("Done", true);
+        telemetry.update();
 
     }
 
