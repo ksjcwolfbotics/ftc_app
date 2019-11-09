@@ -19,7 +19,12 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
     double tiles = 22.75;
     double drivePower = 0.9;
-    double liftPower = 0.75;
+    double liftPower = -0.75;
+
+    int leftWheelTargetPosition;
+    int rightWheelTargetPosition;
+
+    double robotLength = 15.625;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -34,166 +39,126 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         claw = hardwareMap.servo.get("clawServo");
 
         // Initialize Motors and Servos
-        rightWheel.setDirection(DcMotor.Direction.FORWARD);
-        leftWheel.setDirection(DcMotor.Direction.REVERSE);
-        lift.setDirection(DcMotor.Direction.REVERSE);
-
-        leftWheel.setPower(drivePower);
-        rightWheel.setPower(drivePower);
+        rightWheel.setDirection(DcMotor.Direction.REVERSE);
+        leftWheel.setDirection(DcMotor.Direction.FORWARD);
+        lift.setDirection(DcMotor.Direction.FORWARD);
 
         claw.setPosition(0);
 
+        leftWheelTargetPosition = inchesToTicks((Math.PI * robotLength)/2);
+        rightWheelTargetPosition = inchesToTicks(0);
+
         // Reset Encoders and Set Wheels to use Encoders
         resetEncoders();
 
         //------------------------------------------------------------------------------------------
-        waitForStart();
-
         //Instructions After Init. and Start.
-
-        // Move Forward 2 Tiles
-
-        // Set target position to 2 tiles using inchesToTicks function
-        leftWheel.setTargetPosition(inchesToTicks(2*tiles));
-        rightWheel.setTargetPosition(inchesToTicks(2*tiles));
-
-        // Move to set 2 tile position.
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
-
-        // Reset Encoders and Set Wheels to use Encoders
-        resetEncoders();
-
-        //------------------------------------------------------------------------------------------
-
-        // Lift goes up, Claw opens, Lift goes down, Claw closes, Lift goes up
-
-        // Lift goes up for 1 sec and stops.
-        lift.setPower(liftPower);
-        sleep(1000);
-        lift.setPower(0);
+        waitForStart();
 
         //Open claw.
         claw.setPosition(0.5);
 
-        // Lift goes down for 1 second and stops.
-        lift.setPower(-liftPower);
-        sleep(1000);
-        lift.setPower(0);
+        // Move Forward 1.25 tiles
+
+        moveForward(inchesToTicks(1.25*tiles), inchesToTicks(1.25*tiles), 0.5);
+
+        //------------------------------------------------------------------------------------------
+
+        //  Claw opens, Lift goes down, Claw closes, Lift goes up
 
         // Close claw.
         claw.setPosition(0);
 
-        // Lift goes up for 0.5 sec and stops.
-        lift.setPower(liftPower);
-        sleep(500);
-        lift.setPower(0);
-
         //------------------------------------------------------------------------------------------
 
         // Move 1 tile back.
 
         // Set Up Target Position to 1 tile backwards.
 
-        leftWheel.setTargetPosition(inchesToTicks(-1*tiles));
-        rightWheel.setTargetPosition(inchesToTicks(-1*tiles));
+        // DO WE NEED TO MAKE DRIVE POWER NEGATIVE?
 
-        // Run To 1 tile back position.
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
 
         //------------------------------------------------------------------------------------------
 
-        // Reset Encoders and Set Wheels to use Encoders
-        resetEncoders();
+        // Turn right.
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
 
         //------------------------------------------------------------------------------------------
 
-        // Turn left.
-        leftWheel.setTargetPosition(-500);
-        rightWheel.setTargetPosition(1000);
+        // Move forward 1.5 tiles.
 
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
+        moveForward(inchesToTicks(1.5*tiles), inchesToTicks(1.5*tiles), 0.5);
 
         //------------------------------------------------------------------------------------------
 
-        // Reset Encoders and Set Wheels to use Encoders
-        resetEncoders();
-
-        //------------------------------------------------------------------------------------------
-
-        // Move forward 2 tiles.
-
-        // Set Up Target Position to 2 tiles forward..
-        leftWheel.setTargetPosition(inchesToTicks(2*tiles));
-        rightWheel.setTargetPosition(inchesToTicks(2*tiles));
-
-        // Run To 2 tile forward position.
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
-
-        //------------------------------------------------------------------------------------------
-
-        // Reset Encoders and Set Wheels to use Encoders
-        resetEncoders();
-
-        //------------------------------------------------------------------------------------------
-
-        // Open Claw for 1 seconds
+        // Open Claw
 
         claw.setPosition(0.5);
-        sleep(1000);
-        claw.setPosition(0);
-        sleep(500);
 
         //------------------------------------------------------------------------------------------
 
+        // Move 1.25 tiles back.
 
-        // Move 1 tile back.
+        moveForward(inchesToTicks(-1.5*tiles), inchesToTicks(-1.5*tiles), 0.5);
 
-        // Set Up Target Position to 1 tile backwards.
-        leftWheel.setTargetPosition(inchesToTicks(-1*tiles));
-        rightWheel.setTargetPosition(inchesToTicks(-1*tiles));
+        //turn left (inverse the right and left wheel targets)
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, 0.5);
 
-        // Run To 1 tile back position.
+        //move forward 1
+        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), 0.5);
+
+        // close claw
+
+        claw.setPosition(0);
+
+        // move back 1 tile
+
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
+
+        // Turn right.
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
+
+        //move forward 1
+        moveForward(inchesToTicks(1*tiles), inchesToTicks(1*tiles), 0.5);
+
+        // open claw
+
+        claw.setPosition(0.5);
+
+        // move back 0.5 tiles
+
+        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), 0.5);
+
+    }
+
+    public void moveForward( int leftTargetPosition, int rightTargetPosition, double drivePower) {
+        // make sure to use positive values to move forward since set power is negative.
+
+        leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftWheel.setTargetPosition(leftTargetPosition);
+        rightWheel.setTargetPosition(rightTargetPosition);
+
+        telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+        telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+        telemetry.update();
+
         leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
+        leftWheel.setPower(-drivePower);
+        rightWheel.setPower(-drivePower);
+
+        while (rightWheel.isBusy() || leftWheel.isBusy()) {
+            telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+            telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+            telemetry.update();
         }
+
+        leftWheel.setPower(0);
+        rightWheel.setPower(0);
 
 
     }
@@ -205,8 +170,6 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
     }

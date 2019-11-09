@@ -43,7 +43,7 @@ public class AutonomousDiagnosticOpMode extends LinearOpMode {
         // Initialize Motors and Servos
         rightWheel.setDirection(DcMotor.Direction.FORWARD);
         leftWheel.setDirection(DcMotor.Direction.REVERSE);
-        lift.setDirection(DcMotor.Direction.REVERSE);
+        lift.setDirection(DcMotor.Direction.FORWARD);
 
         leftWheel.setPower(drivePower);
         rightWheel.setPower(drivePower);

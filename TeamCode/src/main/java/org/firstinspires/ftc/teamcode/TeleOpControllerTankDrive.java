@@ -37,7 +37,7 @@ public class TeleOpControllerTankDrive extends OpMode {
 
         rightWheel.setDirection(DcMotor.Direction.FORWARD);
         leftWheel.setDirection(DcMotor.Direction.REVERSE);
-        lift.setDirection(DcMotor.Direction.REVERSE);
+        lift.setDirection(DcMotor.Direction.FORWARD);
 
         liftPower = 0.75;
 
@@ -62,12 +62,10 @@ public class TeleOpControllerTankDrive extends OpMode {
         servoPosition = gamepad2.right_stick_y;
 
         lift.setPower(liftPower);
-        claw.setPosition(Math.abs(servoPosition));
+        claw.setPosition(Math.abs(servoPosition) * 0.6);
 
 
         /*
-
-
 
         boolean servoOnOrOff;
 

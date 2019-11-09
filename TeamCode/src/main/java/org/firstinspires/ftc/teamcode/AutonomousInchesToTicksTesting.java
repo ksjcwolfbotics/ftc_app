@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.media.AudioManager;
 import android.media.SoundPool;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -27,7 +26,7 @@ public class AutonomousInchesToTicksTesting extends LinearOpMode {
     public int danceID;
 
     double tiles = 22.75;
-    double drivePower = 0.9;
+    double drivePower = 0.5;
     double liftPower = 0.75;
 
     @Override
@@ -43,11 +42,12 @@ public class AutonomousInchesToTicksTesting extends LinearOpMode {
         claw = hardwareMap.servo.get("clawServo");
 
         // Initialize Motors and Servos
-        rightWheel.setDirection(DcMotor.Direction.FORWARD);
-        leftWheel.setDirection(DcMotor.Direction.REVERSE);
-        lift.setDirection(DcMotor.Direction.REVERSE);
+        rightWheel.setDirection(DcMotor.Direction.REVERSE);
+        leftWheel.setDirection(DcMotor.Direction.FORWARD);
+        lift.setDirection(DcMotor.Direction.FORWARD);
 
 
+        /*
         beep = new SoundPool(1, AudioManager.STREAM_MUSIC, 0); // PSM
         beepID = beep.load(hardwareMap.appContext, R.raw.beep, 1); // PSM
 
@@ -56,47 +56,22 @@ public class AutonomousInchesToTicksTesting extends LinearOpMode {
 
         beep.play(beepID,1,1,1,0,1);
 
+
+
+         */
+        leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        telemetry.addData("Mode", "waiting");
+        telemetry.update();
+
         waitForStart();
 
         //------------------------------------------------------------------------------------------
 
         //Instructions After Init. and Start.
 
-        //Beep
-        sleep(1000);
-        beep.play(beepID,1,1,1,0,1);
-        sleep(1000);
-
-        resetEncoders();
-
-        leftWheel.setPower(drivePower);
-        rightWheel.setPower(drivePower);
-
-        //Move 1 inch
-        leftWheel.setTargetPosition(inchesToTicks(1));
-        rightWheel.setTargetPosition(inchesToTicks(1));
-
-        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Wait command while both
-        while(leftWheel.isBusy() || rightWheel.isBusy())
-        {
-            sleep(0);
-            //Wait until position reached
-        }
-
-        resetEncoders();
-
-        //Beep
-        sleep(1000);
-        beep.play(beepID,1,1,1,1,1);
-        sleep(1000);
-
-        //Default
-        dance.play(danceID,1,1,1,0,1);
-
-
+        moveForward(inchesToTicks(5), inchesToTicks(5), 0.1);
 
     }
 
@@ -107,7 +82,38 @@ public class AutonomousInchesToTicksTesting extends LinearOpMode {
         leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void moveForward( int leftTargetPosition, int rightTargetPosition, double drivePower) {
+        // make sure to use positive values to move forward since set power is negative.
+
+        leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftWheel.setTargetPosition(leftTargetPosition);
+        rightWheel.setTargetPosition(rightTargetPosition);
+
+        telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+        telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+        telemetry.update();
+
+        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        leftWheel.setPower(-drivePower);
+        rightWheel.setPower(-drivePower);
+
+        while (rightWheel.isBusy() || leftWheel.isBusy()) {
+            telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+            telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+            telemetry.update();
+        }
+
+        leftWheel.setPower(0);
+        rightWheel.setPower(0);
+
+
     }
 }
