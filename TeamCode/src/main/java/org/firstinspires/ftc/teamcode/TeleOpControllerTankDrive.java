@@ -25,6 +25,9 @@ public class TeleOpControllerTankDrive extends OpMode {
     double liftPower;
     double servoPosition;
 
+    boolean servoOnOrOff;
+
+
     @Override
     public void init() {
 
@@ -40,6 +43,8 @@ public class TeleOpControllerTankDrive extends OpMode {
         lift.setDirection(DcMotor.Direction.FORWARD);
 
         liftPower = 0.75;
+
+        servoOnOrOff = false;
 
 
       
@@ -66,16 +71,11 @@ public class TeleOpControllerTankDrive extends OpMode {
 
 
         /*
-
-        boolean servoOnOrOff;
-
-        servoOnOrOff = false;
-
         if (gamepad2.x)
         {
             servoOnOrOff = true;
         }
-        else
+        else if(gamepad2.y)
             {
                 servoOnOrOff = false;
             }
@@ -88,7 +88,8 @@ public class TeleOpControllerTankDrive extends OpMode {
         {
             claw.setPosition(0);
         }
-        */
+         */
+
 
     }
 }

@@ -18,7 +18,7 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
     Servo claw;
 
     double tiles = 22.75;
-    double drivePower = 0.9;
+    double drivePower = 0.5;
     double liftPower = -0.75;
 
     int leftWheelTargetPosition;
@@ -60,7 +60,7 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         // Move Forward 1.25 tiles
 
-        moveForward(inchesToTicks(1.25*tiles), inchesToTicks(1.25*tiles), 0.5);
+        moveForward(inchesToTicks(1.25*tiles), inchesToTicks(1.25*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
@@ -74,21 +74,21 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         // Move 1 tile back.
 
         // Set Up Target Position to 1 tile backwards.
-        
 
 
-        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
+
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
         // Turn right.
-        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, drivePower);
 
         //------------------------------------------------------------------------------------------
 
         // Move forward 1.5 tiles.
 
-        moveForward(inchesToTicks(1.5*tiles), inchesToTicks(1.5*tiles), 0.5);
+        moveForward(inchesToTicks(1.5*tiles), inchesToTicks(1.5*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
@@ -100,13 +100,13 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         // Move 1.25 tiles back.
 
-        moveForward(inchesToTicks(-1.5*tiles), inchesToTicks(-1.5*tiles), 0.5);
+        moveForward(inchesToTicks(-1.5*tiles), inchesToTicks(-1.5*tiles), drivePower);
 
         //turn left (inverse the right and left wheel targets)
-        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, 0.5);
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, drivePower);
 
         //move forward 0.5
-        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), 0.5);
+        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), drivePower);
 
         // close claw
 
@@ -114,50 +114,50 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         // move back 1 tile
 
-        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
         // Turn right.
-        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, drivePower);
 
         //move forward 1
-        moveForward(inchesToTicks(1*tiles), inchesToTicks(1*tiles), 0.5);
+        moveForward(inchesToTicks(1*tiles), inchesToTicks(1*tiles), drivePower);
 
         // open claw
 
         claw.setPosition(0.5);
 
         // move back 0.75tiles
-        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), 0.5);
+        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), drivePower);
 
         // EXPERIMENTAL - 3rd Brick Pickup
         // Remove the Above move back 0.75 tiles to begin.
 
         // move back 3 tiles
-        moveForward(inchesToTicks(-3*tiles), inchesToTicks(-3*tiles), 0.5);
+        moveForward(inchesToTicks(-3*tiles), inchesToTicks(-3*tiles), drivePower);
 
         //turn left (inverse the right and left wheel targets)
-        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, 0.5);
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, drivePower);
 
         //move forward 0.5
-        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), 0.5);
+        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), drivePower);
 
         // close claw
         claw.setPosition(0);
 
         // move back 1 tile
-        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), 0.5);
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
         // Turn right.
-        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, 0.5);
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, drivePower);
 
         // move forward 3 tiles
-        moveForward(inchesToTicks(3*tiles), inchesToTicks(3*tiles), 0.5);
+        moveForward(inchesToTicks(3*tiles), inchesToTicks(3*tiles), drivePower);
 
         // open claw
         claw.setPosition(0.5);
 
         // move back 0.75tiles
-        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), 0.5);
+        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), drivePower);
 
         telemetry.addData("Done", true);
         telemetry.update();
