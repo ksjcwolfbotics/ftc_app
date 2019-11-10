@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
-@Autonomous(name="AutonomousEncoderOpMode", group = "Autonomous")
-public class AutonomousEncoderOpMode extends LinearOpMode {
+@Autonomous(name="AutonomousEncoderOpModeBlueAlliance", group = "Autonomous")
+public class AutonomousEncoderOpModeBlueAlliance extends LinearOpMode {
 
     DcMotor leftWheel;
     DcMotor rightWheel;
@@ -45,8 +45,8 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         claw.setPosition(0);
 
-        leftWheelTargetPosition = inchesToTicks((Math.PI * robotLength)/2);
-        rightWheelTargetPosition = inchesToTicks(0);
+        leftWheelTargetPosition = inchesToTicks(0);
+        rightWheelTargetPosition = inchesToTicks((Math.PI * robotLength)/2);
 
         // Reset Encoders and Set Wheels to use Encoders
         resetEncoders();
@@ -58,9 +58,9 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         //Open claw.
         claw.setPosition(0.5);
 
-        // Move Forward 1.25 tiles
+        // Move Forward 1.15 tiles
 
-        moveForward(inchesToTicks(1.25*tiles), inchesToTicks(1.25*tiles), drivePower);
+        moveForward(inchesToTicks(1.15*tiles), inchesToTicks(1.15*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
@@ -74,61 +74,57 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         // Move 1 tile back.
 
         // Set Up Target Position to 1 tile backwards.
-
-
-
         moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
         // Turn right.
-        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, drivePower);
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition-100, drivePower);
 
         //------------------------------------------------------------------------------------------
 
         // Move forward 1.5 tiles.
 
-        moveForward(inchesToTicks(1.5*tiles), inchesToTicks(1.5*tiles), drivePower);
+        moveForward(inchesToTicks(2*tiles), inchesToTicks(2*tiles), drivePower);
 
-        //------------------------------------------------------------------------------------------
-
+        //-------------------------------------------------------------------------------------------
         // Open Claw
 
         claw.setPosition(0.5);
 
         //------------------------------------------------------------------------------------------
 
-        // Move 1.25 tiles back.
+        // Move 3 tiles back.
 
-        moveForward(inchesToTicks(-1.5*tiles), inchesToTicks(-1.5*tiles), drivePower);
+        moveForward(inchesToTicks(-2.25*tiles), inchesToTicks(-2.25*tiles), drivePower);
 
         //turn left (inverse the right and left wheel targets)
-        moveForward(rightWheelTargetPosition, leftWheelTargetPosition, drivePower);
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition-100, drivePower);
 
-        //move forward 0.5
-        moveForward(inchesToTicks(0.5*tiles), inchesToTicks(0.5*tiles), drivePower);
+        //move forward 0.4
+        moveForward(inchesToTicks(0.40*tiles), inchesToTicks(0.40*tiles), drivePower);
 
         // close claw
 
         claw.setPosition(0);
 
         // move back 1 tile
-
         moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
         // Turn right.
-        moveForward(leftWheelTargetPosition, rightWheelTargetPosition, drivePower);
+        moveForward(leftWheelTargetPosition, rightWheelTargetPosition-100, drivePower);
 
-        //move forward 1
-        moveForward(inchesToTicks(1*tiles), inchesToTicks(1*tiles), drivePower);
+        //move forward 2
+        moveForward(inchesToTicks(1.5*tiles), inchesToTicks(1.5*tiles), drivePower);
 
         // open claw
 
         claw.setPosition(0.5);
 
-        // move back 0.75tiles
-        moveForward(inchesToTicks(-0.75*tiles), inchesToTicks(-0.75*tiles), drivePower);
+        // move back 1 tiles
+        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
 
+        /*
         // EXPERIMENTAL - 3rd Brick Pickup
         // Remove the Above move back 0.75 tiles to begin.
 
@@ -162,6 +158,8 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
         telemetry.addData("Done", true);
         telemetry.update();
 
+         */
+
     }
 
     public void moveForward( int leftTargetPosition, int rightTargetPosition, double drivePower) {
@@ -191,6 +189,8 @@ public class AutonomousEncoderOpMode extends LinearOpMode {
 
         leftWheel.setPower(0);
         rightWheel.setPower(0);
+
+
 
 
     }
