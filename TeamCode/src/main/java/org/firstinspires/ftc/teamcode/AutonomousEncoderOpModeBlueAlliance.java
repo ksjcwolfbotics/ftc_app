@@ -60,7 +60,7 @@ public class AutonomousEncoderOpModeBlueAlliance extends LinearOpMode {
 
         // Move Forward 1.15 tiles
 
-        moveForward(inchesToTicks(1.15*tiles), inchesToTicks(1.15*tiles), drivePower);
+        moveForward(inchesToTicks(1.25*tiles), inchesToTicks(1.25*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 

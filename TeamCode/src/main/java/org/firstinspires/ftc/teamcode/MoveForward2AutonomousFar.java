@@ -4,13 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.MasterFunctions.inchesToTicks;
 
 
-@Autonomous(name="Move Forward", group = "Autonomous Testing")
-public class MoveForward extends LinearOpMode {
+@Autonomous(name="Move Forward 2 Auto Far", group = "Autonomous Testing")
+public class MoveForward2AutonomousFar extends LinearOpMode {
 
     //WolfboticsHardwareMap robot   = new WolfboticsHardwareMap();
 
@@ -20,17 +19,15 @@ public class MoveForward extends LinearOpMode {
 
     Servo claw;
 
-    int rightEncoder;
-    int leftEncoder;
-
-    static final double COUNTS_PER_INCH    = inchesToTicks(1) ;    // eg: TETRIX Motor Encoder
-
-    private ElapsedTime runtime = new ElapsedTime();
-
-
     double tiles = 22.75;
     double drivePower = 0.3;
     double liftPower = 0.75;
+
+    double robotLength = 15.625;
+
+    int leftWheelTargetPosition = inchesToTicks((Math.PI * robotLength)/2);
+    int rightWheelTargetPosition = inchesToTicks(0);
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -50,74 +47,56 @@ public class MoveForward extends LinearOpMode {
         leftWheel.setDirection(DcMotor.Direction.FORWARD);
         lift.setDirection(DcMotor.Direction.FORWARD);
 
-        telemetry.addData("encoder value right:", rightEncoder);
-        telemetry.addData("encoder value left:", leftEncoder);
-
-        resetEncoders();
-
         waitForStart();
 
         //------------------------------------------------------------------------------------------
 
         //Instructions After Init. and Start.
 
-        // Move for a second
-        for (int i = 0; i<7; i++) {
+        moveForward(inchesToTicks(5), inchesToTicks(5), 0.2);
 
-            rightEncoder = rightWheel.getCurrentPosition();
-            leftEncoder = leftWheel.getCurrentPosition();
+        //turn left (inverse the right and left wheel targets)
+        moveForward(rightWheelTargetPosition, leftWheelTargetPosition-100, drivePower);
 
-            telemetry.addData("encoder value right:", rightEncoder);
-            telemetry.addData("encoder value left:", leftEncoder);
-
-            telemetry.update();
-
-            sleep(2000);
-
-            moveForward();
-
-
-
-
-
-
-
-
-
-
-
-
-            /*
-            leftWheel.setPower(drivePower);
-            rightWheel.setPower(drivePower);
-            sleep(1000);
-            leftWheel.setPower(0);
-            rightWheel.setPower(0);
-
-
-             */
-
+        moveForward(inchesToTicks(30), inchesToTicks(30), 0.2);
 
 
         }
 
 
+    public void moveForward( int leftTargetPosition, int rightTargetPosition, double drivePower) {
+        // make sure to use positive values to move forward since set power is negative.
 
+        leftWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-    }
+        leftWheel.setTargetPosition(leftTargetPosition);
+        rightWheel.setTargetPosition(rightTargetPosition);
 
-    private void moveForward() {
+        telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+        telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+        telemetry.update();
 
-        // Reset Encoders and Set Wheels to use Encoders
+        leftWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftWheel.setPower(0.1);
-        rightWheel.setPower(0.1);
-        sleep(1000);
+        leftWheel.setPower(-drivePower);
+        rightWheel.setPower(-drivePower);
+
+        while (rightWheel.isBusy() || leftWheel.isBusy()) {
+            telemetry.addData("Left Wheel Target Position", leftWheel.getCurrentPosition());
+            telemetry.addData("Right Wheel Target Position", rightWheel.getCurrentPosition());
+            telemetry.update();
+        }
+
         leftWheel.setPower(0);
         rightWheel.setPower(0);
 
 
+
+
     }
+
 
     private void resetEncoders() {
 

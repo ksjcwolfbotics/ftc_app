@@ -60,7 +60,7 @@ public class AutonomousEncoderOpModeRedAlliance extends LinearOpMode {
 
         // Move Forward 1.15 tiles
 
-        moveForward(inchesToTicks(1.15*tiles), inchesToTicks(1.15*tiles), drivePower);
+        moveForward(inchesToTicks(1.35*tiles), inchesToTicks(1.35*tiles), drivePower);
 
         //------------------------------------------------------------------------------------------
 
@@ -94,22 +94,21 @@ public class AutonomousEncoderOpModeRedAlliance extends LinearOpMode {
 
         //------------------------------------------------------------------------------------------
 
-        // Move 3 tiles back.
+        // Move 2.25 tiles back.
 
         moveForward(inchesToTicks(-2.25*tiles), inchesToTicks(-2.25*tiles), drivePower);
 
         //turn left (inverse the right and left wheel targets)
         moveForward(rightWheelTargetPosition, leftWheelTargetPosition-100, drivePower);
 
-        //move forward 0.25
-        moveForward(inchesToTicks(0.25*tiles), inchesToTicks(0.25*tiles), drivePower);
-
+        //move forward 0.75
+        moveForward(inchesToTicks(0.75*tiles), inchesToTicks(0.75*tiles), drivePower);
         // close claw
 
         claw.setPosition(0);
 
-        // move back 1 tile
-        moveForward(inchesToTicks(-1*tiles), inchesToTicks(-1*tiles), drivePower);
+        // move back 1.5 tile
+        moveForward(inchesToTicks(-1.5*tiles), inchesToTicks(-1.5*tiles), drivePower);
 
         // Turn right.
         moveForward(leftWheelTargetPosition-100, rightWheelTargetPosition, drivePower);
